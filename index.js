@@ -75,7 +75,7 @@ function displayBooks() {
     // Create a new <p> element for the number of pages in a book.
     const pages = document.createElement('p');
     pages.classList.add('pages');
-    pages.innerHTML = myLibrary[i].pages;
+    pages.innerHTML = myLibrary[i].pages + ' pages';
   
     // Create a new <button> element to display a book's reading status.
     const read = document.createElement('button');
