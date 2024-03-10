@@ -87,7 +87,9 @@ function displayBooks() {
     remove.classList.add('remove');
     remove.innerHTML = 'Remove';
 
+    // Create a container for read and remove buttons
     const readRemoveButtons = document.createElement('div');
+    readRemoveButtons.classList.add('read-remove-buttons');
     readRemoveButtons.appendChild(read);
     readRemoveButtons.appendChild(remove);
 
