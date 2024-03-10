@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+}
+
+aside {
+    background-color: #f6f6f6;
+    flex: 1;
+}
+
+.logo h1 {
+    margin: 0;
+}
+
+.logo {
+    margin: 35px 30px;
+    display: flex;
+    gap: 10px;
+}
+
+aside p {
+    margin-left: 30px;
+}
+
+.add {
+    margin-top: 60px;
+}
+
+.publish, .barcodes, .reports {
+    margin-bottom: 70px;
+}
+
+.main {
+    flex: 4.2;
+}
+
+aside svg {
+    width: 35px;
+}
