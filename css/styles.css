@@ -80,27 +80,31 @@ header {
   gap: 20px;
 }
 
-/* aside {
-  background-color: #f6f6f6;
-  height: 100vh;
-  width: 20%;
-  float: left;
-}
+@media screen and (min-width: 1050px) {
+  header {
+    display: none;
+  }
 
-.logo {
-  margin: 35px 30px;
-  display: flex;
-  gap: 10px;
-}
-
-aside p {
-  margin-left: 30px;
-}
-
-.add {
-  margin-top: 60px;
-}
-
-.publish, .barcodes, .reports {
-  margin-bottom: 70px;
+  aside {
+    display: block;
+    background-color: #f6f6f6;
+    height: 100vh;
+    width: 20%;
+    float: left;
+    box-shadow: 3px 5px 6px var(--shadow);
+  }
+  
+  .logo {
+    margin: 35px 30px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  aside p {
+    margin-left: 30px;
+  }
+  
+  .add {
+    margin-top: 60px;
+  }
 }
