@@ -58,7 +58,7 @@ function addBookToLibrary(title, author, pages, read) {
  */
 function displayBooks() {
   for (let i = 0; i < myLibrary.length; i++) {
-    // Create a new <div> element to represent a book
+    // Create a new <div> element to represent a book.
     const book = document.createElement('div');
     book.classList.add('book');
 
@@ -87,13 +87,13 @@ function displayBooks() {
     remove.classList.add('remove');
     remove.innerHTML = 'Remove';
 
-    // Create a container for read and remove buttons
+    // Create a container for read and remove buttons.
     const readRemoveButtons = document.createElement('div');
     readRemoveButtons.classList.add('read-remove-buttons');
     readRemoveButtons.appendChild(read);
     readRemoveButtons.appendChild(remove);
 
-    // Append elements to the book element
+    // Append elements to the book element.
     book.appendChild(title);
     book.appendChild(author);
     book.appendChild(pages);
@@ -114,6 +114,7 @@ menu.addEventListener('click', () => {
   headerNav.classList.toggle('toggle');
 });
 
+// Add books.
 addBookToLibrary('Cracking the Coding Interview', 'Gayle McDowell', 708, 0);
 addBookToLibrary('The Mythical Man-Month', 'Fred Brooks', 336, 0);
 addBookToLibrary('Code Complete', 'Steve McConnell', 960, 0);
