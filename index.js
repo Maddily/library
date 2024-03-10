@@ -109,9 +109,10 @@ const main = document.querySelector('.main');
 const menu = document.querySelector('.menu');
 const headerNav = document.querySelector('.header-nav')
 
+// Toggle nav menu viewing.
 menu.addEventListener('click', () => {
   headerNav.classList.toggle('toggle');
-})
+});
 
 addBookToLibrary('Cracking the Coding Interview', 'Gayle McDowell', 708, 0);
 addBookToLibrary('The Mythical Man-Month', 'Fred Brooks', 336, 0);
@@ -135,3 +136,12 @@ addBookToLibrary('Working Effectively with Legacy Code', 'Michael C. Feathers', 
 addBookToLibrary('The C++ Programming Language', 'Bjarne Stroustrup', 1030, 0);
 
 displayBooks();
+
+const readButtons = document.querySelectorAll('.read')
+
+// Enable changing book reading status.
+readButtons.forEach((readButton) => {
+  readButton.addEventListener('click', () => {
+    readButton.innerHTML = readButton.innerHTML == 'Not Read' ? 'Read' : 'Not Read';
+  });
+})
