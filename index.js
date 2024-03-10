@@ -62,8 +62,8 @@ function displayBooks() {
     const book = document.createElement('div');
     book.classList.add('book');
 
-    // Create a new <h2> element for a book's title.
-    const title = document.createElement('h2');
+    // Create a new <h4> element for a book's title.
+    const title = document.createElement('h4');
     title.classList.add('title');
     title.innerHTML = myLibrary[i].title;
 
