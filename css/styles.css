@@ -62,7 +62,7 @@ header {
   display: block;
 }
 
-.header-nav *, svg, h1, button {
+.header-nav *, svg, h1, button, .title {
   cursor: pointer;
 }
 
@@ -97,7 +97,7 @@ header {
 
 .title {
   font-size: 0.9rem;
-  color: #424242;
+  color: #464646;
 }
 
 .book p, .book h4 {
