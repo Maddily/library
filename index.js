@@ -87,12 +87,15 @@ function displayBooks() {
     remove.classList.add('remove');
     remove.innerHTML = 'Remove';
 
+    const readRemoveButtons = document.createElement('div');
+    readRemoveButtons.appendChild(read);
+    readRemoveButtons.appendChild(remove);
+
     // Append elements to the book element
     book.appendChild(title);
     book.appendChild(author);
     book.appendChild(pages);
-    book.appendChild(read);
-    book.appendChild(remove);
+    book.appendChild(readRemoveButtons);
 
     // Append the book element to the main element.
     main.appendChild(book);
