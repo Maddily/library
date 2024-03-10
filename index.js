@@ -101,6 +101,12 @@ function displayBooks() {
 
 const myLibrary = [];
 const main = document.querySelector('.main');
+const menu = document.querySelector('.menu');
+const headerNav = document.querySelector('.header-nav')
+
+menu.addEventListener('click', () => {
+  headerNav.classList.toggle('toggle');
+})
 
 addBookToLibrary('Cracking the Coding Interview', 'Gayle McDowell', 708, 0);
 addBookToLibrary('The Mythical Man-Month', 'Fred Brooks', 336, 0);
