@@ -80,11 +80,13 @@ function displayBooks() {
     // Create a new <button> element to display a book's reading status.
     const read = document.createElement('button');
     read.classList.add('read');
+    read.setAttribute('data-book', i);
     read.innerHTML = myLibrary[i].read ? 'Read' : 'Not Read';
 
     // Create a new <button> element that removes a book.
     const remove = document.createElement('button');
     remove.classList.add('remove');
+    remove.setAttribute('data-book', i);
     remove.innerHTML = 'Remove';
 
     // Create a container for read and remove buttons.
@@ -109,10 +111,45 @@ const main = document.querySelector('.main');
 const menu = document.querySelector('.menu');
 const headerNav = document.querySelector('.header-nav')
 
-// Toggle nav menu viewing.
-menu.addEventListener('click', () => {
-  headerNav.classList.toggle('toggle');
-});
+/**
+ * Removes a book from myLibrary array and re-displays the existing books.
+ * @param {number} bookIndex - The index of a book in myLibrary array.
+ */
+function removeBookAndUpdateDisplay(bookIndex) {
+  myLibrary.splice(bookIndex, 1);
+  main.innerHTML = '';
+  displayBooks();
+  readButtons = document.querySelectorAll('.read');
+  removeButtons = document.querySelectorAll('.remove');
+  // Reattach event listeners after updating the display
+  enableReadButton();
+  enableRemoveButton();
+}
+
+/**
+ * Changes a book's reading status when read/not read button is clicked.
+ */
+function enableReadButton() {
+  readButtons.forEach((readButton) => {
+    readButton.addEventListener('click', () => {
+      const bookIndex = readButton.dataset.book;
+      readButton.innerHTML = myLibrary[bookIndex].read == 0 ? 'Read' : 'Not Read';
+      myLibrary[bookIndex].read = myLibrary[bookIndex].read == 0 ? 1 : 0;
+    });
+  })
+}
+
+/**
+ * Removes the book whose remove button is clicked.
+ */
+function enableRemoveButton() {
+  removeButtons.forEach((removeButton) => {
+    removeButton.addEventListener('click', () => {
+      const bookIndex = removeButton.dataset.book;
+      removeBookAndUpdateDisplay(bookIndex);
+    });
+  })
+}
 
 // Add books.
 addBookToLibrary('Cracking the Coding Interview', 'Gayle McDowell', 708, 0);
@@ -136,13 +173,19 @@ addBookToLibrary('Clean Architecture', 'Robert C. Martin', 432, 0);
 addBookToLibrary('Working Effectively with Legacy Code', 'Michael C. Feathers', 464, 0);
 addBookToLibrary('The C++ Programming Language', 'Bjarne Stroustrup', 1030, 0);
 
+// Toggle nav menu viewing.
+menu.addEventListener('click', () => {
+  headerNav.classList.toggle('toggle');
+});
+
+// Display initial set of books.
 displayBooks();
 
-const readButtons = document.querySelectorAll('.read')
+let readButtons = document.querySelectorAll('.read');
+let removeButtons = document.querySelectorAll('.remove');
 
 // Enable changing book reading status.
-readButtons.forEach((readButton) => {
-  readButton.addEventListener('click', () => {
-    readButton.innerHTML = readButton.innerHTML == 'Not Read' ? 'Read' : 'Not Read';
-  });
-})
+enableReadButton();
+
+// Remove the book whose Remove button is clicked.
+enableRemoveButton();
