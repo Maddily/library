@@ -62,7 +62,7 @@ header {
   display: block;
 }
 
-.header-nav *, svg, h1, button, .title {
+.header-nav *, svg, h1, button, .title, aside p {
   cursor: pointer;
 }
 
