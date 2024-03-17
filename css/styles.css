@@ -140,7 +140,7 @@ button {
   aside {
     display: block;
     background-color: #f6f6f6;
-    height: 100vh;
+    height: 100%;
     width: 20%;
     float: left;
     box-shadow: 3px 5px 6px var(--shadow);
