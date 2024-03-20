@@ -159,7 +159,7 @@ addBookToLibrary('Programming Pearls', 'Jon Bentley', 256, 0);
 addBookToLibrary('The Algorithm Design Manual', 'Steven Skiena', 748, 0);
 addBookToLibrary('Modern C++ Design', 'Andrei Alexandrescu', 360, 0);
 addBookToLibrary('Clean Code', 'Robert C. Martin', 464, 0);
-addBookToLibrary('Refactoring: Improving the Design of Existing Code', 'Martin Fowler', 431, 0);
+/* addBookToLibrary('Refactoring: Improving the Design of Existing Code', 'Martin Fowler', 431, 0);
 addBookToLibrary('Test-Driven Development: By Example', 'Kent Beck', 216, 0);
 addBookToLibrary('Distributed Systems For Fun and Profit', 'Mikito Takada', 60, 0);
 addBookToLibrary('The Hundred-Page Machine Learning Book', 'Andriy Burkov', 159, 0);
@@ -167,7 +167,7 @@ addBookToLibrary('The Five Dysfunctions of a Team', 'Patrick Lencioni', 228, 0);
 addBookToLibrary('The Clean Coder', 'Robert C. Martin', 210, 0);
 addBookToLibrary('Code: The Hidden Language of Computer Hardware and Software', 'Charles Petzold', 400, 0);
 addBookToLibrary('Introduction to the Theory of Computation', 'Michael Sipser', 456, 0);
-addBookToLibrary('Gödel, Escher, Bach: An Eternal Golden Braid', 'Douglas R. Hofstadter', 756, 0);
+addBookToLibrary('Gödel, Escher, Bach: An Eternal Golden Braid', 'Douglas R. Hofstadter', 756, 0); */
 addBookToLibrary('Domain-Driven Design', 'Eric Evans', 560, 0);
 addBookToLibrary('Clean Architecture', 'Robert C. Martin', 432, 0);
 addBookToLibrary('Working Effectively with Legacy Code', 'Michael C. Feathers', 464, 0);
@@ -189,3 +189,60 @@ enableReadButton();
 
 // Remove the book whose Remove button is clicked.
 enableRemoveButton();
+
+const modal = document.querySelector('dialog');
+const form = document.querySelector('form');
+const addBook = document.querySelector('form button');
+const close = document.querySelector('form svg');
+const titleInput = document.getElementById('title');
+const authorInput = document.getElementById('author');
+const pagesInput = document.getElementById('pages');
+const readInput = document.getElementById('read');
+
+// Enable modal
+const addBookButtons = document.querySelectorAll('.add');
+addBookButtons.forEach((addBook) => {
+  addBook.addEventListener('click', () => {
+    modal.showModal();
+    // On smaller screens, exit menu when Add Book option is selected.
+    if (addBook.parentElement.classList.contains('header-nav')) {
+      headerNav.classList.toggle('toggle');
+    }
+  });
+})
+
+// Close modal
+close.addEventListener('click', () => modal.close());
+
+// Handle form submission
+form.addEventListener('submit', (e) => {
+  // Prevent the form from actually submitting
+  e.preventDefault();
+
+  // Collect the entered information
+  const title = titleInput.value;
+  const author = authorInput.value;
+  const pages = parseInt(pagesInput.value);
+  const readingStatus = readInput.checked ? 1 : 0;
+
+  // Add the new book
+  addBookToLibrary(title, author, pages, readingStatus);
+
+  // Re-display the books
+  main.innerHTML = '';
+  displayBooks();
+  readButtons = document.querySelectorAll('.read');
+  removeButtons = document.querySelectorAll('.remove');
+
+  // Reattach event listeners after updating the display
+  enableReadButton();
+  enableRemoveButton();
+
+  // Reset the form
+  form.reset();
+})
+
+// Close the modal after adding a book
+addBook.addEventListener('click', (e) => {
+  modal.close();
+});
