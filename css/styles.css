@@ -132,6 +132,37 @@ button {
   min-width: 80px;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+form svg {
+  margin-left: auto;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  gap: 15px;
+  background-color: #f6f6f6;
+}
+
+fieldset div * {
+  display: block;
+  margin-bottom: 2px;
+}
+
+input[type='radio'] {
+  margin-right: 10px;
+}
+
+::backdrop {
+  background-color: rgba(111, 145, 96, 0.75);
+}
+
 @media screen and (min-width: 1050px) {
   header {
     display: none;
