@@ -6,7 +6,7 @@
  * @param {number} pages - The number of pages in a book.
  * @param {number} read - The reading status. 0 means not read and 1 means read.
  */
-function Book(title, author, pages, read) {
+function Book (title, author, pages, read) {
   /**
    * A book's title.
    * @type {string}
@@ -35,10 +35,10 @@ function Book(title, author, pages, read) {
    * @method
    * @returns {string} A book's details.
    */
-  this.info = function() {
-    let read = this.read ? 'read' : 'not read';
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${read}`
-  }
+  this.info = function () {
+    const read = this.read ? 'read' : 'not read';
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${read}`;
+  };
 }
 
 /**
@@ -48,7 +48,7 @@ function Book(title, author, pages, read) {
  * @param {number} pages - The number of pages in a book.
  * @param {number} read - The reading status. 0 means not read and 1 means read.
  */
-function addBookToLibrary(title, author, pages, read) {
+function addBookToLibrary (title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
 }
@@ -56,8 +56,8 @@ function addBookToLibrary(title, author, pages, read) {
 /**
  * Loops through myLibrary array and adds book elements to the page.
  */
-function displayBooks() {
-  for (let i = 0; i < myLibrary.length; i++) {
+function displayBooks () {
+  for (let i = 0, j = 0; i < myLibrary.length; i++, j++) {
     // Create a new <div> element to represent a book.
     const book = document.createElement('div');
     book.classList.add('book');
@@ -76,7 +76,7 @@ function displayBooks() {
     const pages = document.createElement('p');
     pages.classList.add('pages');
     pages.innerHTML = myLibrary[i].pages + ' pages';
-  
+
     // Create a new <button> element to display a book's reading status.
     const read = document.createElement('button');
     read.classList.add('read');
@@ -101,23 +101,23 @@ function displayBooks() {
     book.appendChild(pages);
     book.appendChild(readRemoveButtons);
 
-    // Append the book element to the main element.
-    main.appendChild(book);
+    // Append the book element to the booksContainer element.
+    booksContainer.append(book);
   }
 }
 
 const myLibrary = [];
-const main = document.querySelector('.main');
 const menu = document.querySelector('.menu');
-const headerNav = document.querySelector('.header-nav')
+const headerNav = document.querySelector('.header-nav');
+const booksContainer = document.querySelector('.main');
 
 /**
  * Removes a book from myLibrary array and re-displays the existing books.
  * @param {number} bookIndex - The index of a book in myLibrary array.
  */
-function removeBookAndUpdateDisplay(bookIndex) {
+function removeBookAndUpdateDisplay (bookIndex) {
   myLibrary.splice(bookIndex, 1);
-  main.innerHTML = '';
+  booksContainer.innerHTML = '';
   displayBooks();
   readButtons = document.querySelectorAll('.read');
   removeButtons = document.querySelectorAll('.remove');
@@ -129,26 +129,26 @@ function removeBookAndUpdateDisplay(bookIndex) {
 /**
  * Changes a book's reading status when read/not read button is clicked.
  */
-function enableReadButton() {
+function enableReadButton () {
   readButtons.forEach((readButton) => {
     readButton.addEventListener('click', () => {
       const bookIndex = readButton.dataset.book;
-      readButton.innerHTML = myLibrary[bookIndex].read == 0 ? 'Read' : 'Not Read';
-      myLibrary[bookIndex].read = myLibrary[bookIndex].read == 0 ? 1 : 0;
+      readButton.innerHTML = myLibrary[bookIndex].read === 0 ? 'Read' : 'Not Read';
+      myLibrary[bookIndex].read = myLibrary[bookIndex].read === 0 ? 1 : 0;
     });
-  })
+  });
 }
 
 /**
  * Removes the book whose remove button is clicked.
  */
-function enableRemoveButton() {
+function enableRemoveButton () {
   removeButtons.forEach((removeButton) => {
     removeButton.addEventListener('click', () => {
       const bookIndex = removeButton.dataset.book;
       removeBookAndUpdateDisplay(bookIndex);
     });
-  })
+  });
 }
 
 // Add books.
@@ -156,19 +156,18 @@ addBookToLibrary('Cracking the Coding Interview', 'Gayle McDowell', 708, 0);
 addBookToLibrary('The Mythical Man-Month', 'Fred Brooks', 336, 0);
 addBookToLibrary('Code Complete', 'Steve McConnell', 960, 0);
 addBookToLibrary('Programming Pearls', 'Jon Bentley', 256, 0);
-addBookToLibrary('The Algorithm Design Manual', 'Steven Skiena', 748, 0);
+/* addBookToLibrary('The Algorithm Design Manual', 'Steven Skiena', 748, 0);
 addBookToLibrary('Modern C++ Design', 'Andrei Alexandrescu', 360, 0);
 addBookToLibrary('Clean Code', 'Robert C. Martin', 464, 0);
-/* addBookToLibrary('Refactoring: Improving the Design of Existing Code', 'Martin Fowler', 431, 0);
+addBookToLibrary('Refactoring: Improving the Design of Existing Code', 'Martin Fowler', 431, 0);
 addBookToLibrary('Test-Driven Development: By Example', 'Kent Beck', 216, 0);
 addBookToLibrary('Distributed Systems For Fun and Profit', 'Mikito Takada', 60, 0);
 addBookToLibrary('The Hundred-Page Machine Learning Book', 'Andriy Burkov', 159, 0);
 addBookToLibrary('The Five Dysfunctions of a Team', 'Patrick Lencioni', 228, 0);
-addBookToLibrary('The Clean Coder', 'Robert C. Martin', 210, 0);
+addBookToLibrary('The Clean Coder', 'Robert C. Martin', 210, 0); */
 addBookToLibrary('Code: The Hidden Language of Computer Hardware and Software', 'Charles Petzold', 400, 0);
 addBookToLibrary('Introduction to the Theory of Computation', 'Michael Sipser', 456, 0);
-addBookToLibrary('Gödel, Escher, Bach: An Eternal Golden Braid', 'Douglas R. Hofstadter', 756, 0); */
-addBookToLibrary('Domain-Driven Design', 'Eric Evans', 560, 0);
+addBookToLibrary('Gödel, Escher, Bach: An Eternal Golden Braid', 'Douglas R. Hofstadter', 756, 0);
 addBookToLibrary('Clean Architecture', 'Robert C. Martin', 432, 0);
 addBookToLibrary('Working Effectively with Legacy Code', 'Michael C. Feathers', 464, 0);
 addBookToLibrary('The C++ Programming Language', 'Bjarne Stroustrup', 1030, 0);
@@ -209,7 +208,7 @@ addBookButtons.forEach((addBook) => {
       headerNav.classList.toggle('toggle');
     }
   });
-})
+});
 
 // Close modal
 close.addEventListener('click', () => modal.close());
@@ -229,7 +228,7 @@ form.addEventListener('submit', (e) => {
   addBookToLibrary(title, author, pages, readingStatus);
 
   // Re-display the books
-  main.innerHTML = '';
+  booksContainer.innerHTML = '';
   displayBooks();
   readButtons = document.querySelectorAll('.read');
   removeButtons = document.querySelectorAll('.remove');
@@ -240,7 +239,7 @@ form.addEventListener('submit', (e) => {
 
   // Reset the form
   form.reset();
-})
+});
 
 // Close the modal after adding a book
 addBook.addEventListener('click', (e) => {
