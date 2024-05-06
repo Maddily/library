@@ -10,6 +10,7 @@ body {
   height: 100vh;
   width: 100%;
   font-family: "Roboto", sans-serif;
+  overflow: auto;
 }
 
 header {
@@ -71,7 +72,7 @@ header {
 }
 
 .main {
-  width: 80%;
+  width: 100%;
   height: 100%;
   float: left;
   padding: 30px;
@@ -174,8 +175,17 @@ input[type='radio'] {
 }
 
 @media screen and (min-width: 1050px) {
+  body {
+    overflow: unset;
+  }
+
   header {
     display: none;
+  }
+
+  .main {
+    width: 80%;
+    overflow: auto;
   }
 
   aside {

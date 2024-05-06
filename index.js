@@ -1,41 +1,43 @@
-/**
- * Represents a Book object.
- * @constructor
- * @param {string} title - A book's title.
- * @param {string} author - The name of a book's author.
- * @param {number} pages - The number of pages in a book.
- * @param {number} read - The reading status. 0 means not read and 1 means read.
- */
-function Book (title, author, pages, read) {
+/** Class representing a book. */
+class Book {
   /**
-   * A book's title.
-   * @type {string}
+   * Create a book.
+   * @param {string} title - A book's title.
+   * @param {string} author - A book's author.
+   * @param {number} pages - The number of pages in a book.
+   * @param {string} read - The reading status.
    */
-  this.title = title;
+  constructor (title, author, pages, read) {
+    /**
+     * A book's title.
+     * @type {string}
+     */
+    this.title = title;
+
+    /**
+     * The name of a book's author.
+     * @type {string}
+     */
+    this.author = author;
+
+    /**
+     * The number of pages in a book.
+     * @type {number}
+     */
+    this.pages = pages;
+
+    /**
+     * The reading status. 0 means not read and 1 means read.
+     * @type {number}
+     */
+    this.read = read;
+  }
 
   /**
-   * The name of a book's author.
-   * @type {string}
+   * Get a book's details.
+   * @return {string} A book's details.
    */
-  this.author = author;
-
-  /**
-   * The number of pages in a book.
-   * @type {number}
-   */
-  this.pages = pages;
-
-  /**
-   * The reading status. 0 means not read and 1 means read.
-   * @type {number}
-   */
-  this.read = read;
-
-  /**
-   * @method
-   * @returns {string} A book's details.
-   */
-  this.info = function () {
+  info () {
     const read = this.read ? 'read' : 'not read';
     return `${this.title} by ${this.author}, ${this.pages} pages, ${read}`;
   };
