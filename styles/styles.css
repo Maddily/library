@@ -170,8 +170,13 @@ input[type='radio'] {
   margin-right: 10px;
 }
 
+input:focus {
+  outline: none;
+}
+
 .error {
   color: #900;
+  font-size: 0.8rem;
 }
 
 :modal {
