@@ -248,14 +248,17 @@ function removeError(errorClassName) {
 function checkInput() {
   if (!titleInput.validity.valid) {
     showError('* Please enter the book title', 'title-error');
+    titleInput.classList.add('invalid');
   }
 
   if (!authorInput.validity.valid) {
     showError('* Please enter the author name', 'author-error');
+    authorInput.classList.add('invalid');
   }
 
   if (!pagesInput.validity.valid) {
     showError('* Please enter the number of pages', 'number-of-pages-error');
+    pagesInput.classList.add('invalid');
   }
 
   if (!readInput.checked && !notReadInput.checked) {
@@ -266,14 +269,17 @@ function checkInput() {
 // Remove error messages on required fields when input is received.
 titleInput.addEventListener('input', () => {
   removeError('title-error');
+  titleInput.classList.remove('invalid');
 });
 
 authorInput.addEventListener('input', () => {
   removeError('author-error');
+  authorInput.classList.remove('invalid');
 });
 
 pagesInput.addEventListener('input', () => {
   removeError('number-of-pages-error');
+  pagesInput.classList.remove('invalid');
 });
 
 readInput.addEventListener('click', () => {
