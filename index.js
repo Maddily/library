@@ -7,7 +7,7 @@ class Book {
    * @param {number} pages - The number of pages in a book.
    * @param {string} read - The reading status.
    */
-  constructor (title, author, pages, read) {
+  constructor(title, author, pages, read) {
     /**
      * A book's title.
      * @type {string}
@@ -37,10 +37,10 @@ class Book {
    * Get a book's details.
    * @return {string} A book's details.
    */
-  info () {
+  info() {
     const read = this.read ? 'read' : 'not read';
     return `${this.title} by ${this.author}, ${this.pages} pages, ${read}`;
-  };
+  }
 }
 
 /**
@@ -50,7 +50,7 @@ class Book {
  * @param {number} pages - The number of pages in a book.
  * @param {number} read - The reading status. 0 means not read and 1 means read.
  */
-function addBookToLibrary (title, author, pages, read) {
+function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
 }
@@ -58,7 +58,7 @@ function addBookToLibrary (title, author, pages, read) {
 /**
  * Loops through myLibrary array and adds book elements to the page.
  */
-function displayBooks () {
+function displayBooks() {
   for (let i = 0, j = 0; i < myLibrary.length; i++, j++) {
     // Create a new <div> element to represent a book.
     const book = document.createElement('div');
@@ -117,7 +117,7 @@ const booksContainer = document.querySelector('.main');
  * Removes a book from myLibrary array and re-displays the existing books.
  * @param {number} bookIndex - The index of a book in myLibrary array.
  */
-function removeBookAndUpdateDisplay (bookIndex) {
+function removeBookAndUpdateDisplay(bookIndex) {
   myLibrary.splice(bookIndex, 1);
   booksContainer.innerHTML = '';
   displayBooks();
@@ -131,11 +131,12 @@ function removeBookAndUpdateDisplay (bookIndex) {
 /**
  * Changes a book's reading status when read/not read button is clicked.
  */
-function enableReadButton () {
+function enableReadButton() {
   readButtons.forEach((readButton) => {
     readButton.addEventListener('click', () => {
       const bookIndex = readButton.dataset.book;
-      readButton.innerHTML = myLibrary[bookIndex].read === 0 ? 'Read' : 'Not Read';
+      readButton.innerHTML =
+        myLibrary[bookIndex].read === 0 ? 'Read' : 'Not Read';
       myLibrary[bookIndex].read = myLibrary[bookIndex].read === 0 ? 1 : 0;
     });
   });
@@ -144,7 +145,7 @@ function enableReadButton () {
 /**
  * Removes the book whose remove button is clicked.
  */
-function enableRemoveButton () {
+function enableRemoveButton() {
   removeButtons.forEach((removeButton) => {
     removeButton.addEventListener('click', () => {
       const bookIndex = removeButton.dataset.book;
@@ -167,11 +168,31 @@ addBookToLibrary('Distributed Systems For Fun and Profit', 'Mikito Takada', 60, 
 addBookToLibrary('The Hundred-Page Machine Learning Book', 'Andriy Burkov', 159, 0);
 addBookToLibrary('The Five Dysfunctions of a Team', 'Patrick Lencioni', 228, 0);
 addBookToLibrary('The Clean Coder', 'Robert C. Martin', 210, 0); */
-addBookToLibrary('Code: The Hidden Language of Computer Hardware and Software', 'Charles Petzold', 400, 0);
-addBookToLibrary('Introduction to the Theory of Computation', 'Michael Sipser', 456, 0);
-addBookToLibrary('Gödel, Escher, Bach: An Eternal Golden Braid', 'Douglas R. Hofstadter', 756, 0);
+addBookToLibrary(
+  'Code: The Hidden Language of Computer Hardware and Software',
+  'Charles Petzold',
+  400,
+  0
+);
+addBookToLibrary(
+  'Introduction to the Theory of Computation',
+  'Michael Sipser',
+  456,
+  0
+);
+addBookToLibrary(
+  'Gödel, Escher, Bach: An Eternal Golden Braid',
+  'Douglas R. Hofstadter',
+  756,
+  0
+);
 addBookToLibrary('Clean Architecture', 'Robert C. Martin', 432, 0);
-addBookToLibrary('Working Effectively with Legacy Code', 'Michael C. Feathers', 464, 0);
+addBookToLibrary(
+  'Working Effectively with Legacy Code',
+  'Michael C. Feathers',
+  464,
+  0
+);
 addBookToLibrary('The C++ Programming Language', 'Bjarne Stroustrup', 1030, 0);
 
 // Toggle nav menu viewing.
@@ -241,9 +262,5 @@ form.addEventListener('submit', (e) => {
 
   // Reset the form
   form.reset();
-});
-
-// Close the modal after adding a book
-addBook.addEventListener('click', (e) => {
   modal.close();
 });
