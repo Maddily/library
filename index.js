@@ -220,6 +220,7 @@ const titleInput = document.getElementById('title');
 const authorInput = document.getElementById('author');
 const pagesInput = document.getElementById('pages');
 const readInput = document.getElementById('read');
+const notReadInput = document.getElementById('not-read');
 
 // Enable modal
 const addBookButtons = document.querySelectorAll('.add');
@@ -233,19 +234,87 @@ addBookButtons.forEach((addBook) => {
   });
 });
 
+function showError(errorMessage, errorClassName) {
+  const errorSpan = document.querySelector(`.${errorClassName}`);
+  errorSpan.textContent = errorMessage;
+}
+
+function removeError(errorClassName) {
+  const errorSpan = document.querySelector(`.${errorClassName}`);
+  errorSpan.textContent = '';
+}
+
+// Place error messages on required fields when input is missing.
+function checkInput() {
+  if (!titleInput.validity.valid) {
+    showError('* Please enter the book title', 'title-error');
+  }
+
+  if (!authorInput.validity.valid) {
+    showError('* Please enter the author name', 'author-error');
+  }
+
+  if (!pagesInput.validity.valid) {
+    showError('* Please enter the number of pages', 'number-of-pages-error');
+  }
+
+  if (!readInput.checked && !notReadInput.checked) {
+    showError('* Did you read this book?', 'read-error');
+  }
+}
+
+// Remove error messages on required fields when input is received.
+titleInput.addEventListener('input', () => {
+  removeError('title-error');
+});
+
+authorInput.addEventListener('input', () => {
+  removeError('author-error');
+});
+
+pagesInput.addEventListener('input', () => {
+  removeError('number-of-pages-error');
+});
+
+readInput.addEventListener('click', () => {
+  removeError('read-error');
+});
+
+notReadInput.addEventListener('click', () => {
+  removeError('read-error');
+});
+
 // Close modal
-close.addEventListener('click', () => modal.close());
+close.addEventListener('click', () => {
+  // Remove error messages
+  removeError('title-error');
+  removeError('author-error');
+  removeError('number-of-pages-error');
+  removeError('read-error');
+
+  modal.close();
+});
 
 // Handle form submission
 form.addEventListener('submit', (e) => {
   // Prevent the form from actually submitting
   e.preventDefault();
+  checkInput();
 
   // Collect the entered information
   const title = titleInput.value;
   const author = authorInput.value;
   const pages = parseInt(pagesInput.value);
   const readingStatus = readInput.checked ? 1 : 0;
+
+  // Prevent form submission/modal closing when required data isn't present.
+  if (!title || !author || !pages) {
+    return;
+  }
+
+  if (!readInput.checked && !notReadInput.checked) {
+    return;
+  }
 
   // Add the new book
   addBookToLibrary(title, author, pages, readingStatus);
