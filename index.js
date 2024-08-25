@@ -7,7 +7,7 @@ class Book {
    * @param {number} pages - The number of pages in a book.
    * @param {string} read - The reading status.
    */
-  constructor (title, author, pages, read) {
+  constructor(title, author, pages, read) {
     /**
      * A book's title.
      * @type {string}
@@ -37,10 +37,10 @@ class Book {
    * Get a book's details.
    * @return {string} A book's details.
    */
-  info () {
+  info() {
     const read = this.read ? 'read' : 'not read';
     return `${this.title} by ${this.author}, ${this.pages} pages, ${read}`;
-  };
+  }
 }
 
 /**
@@ -50,7 +50,7 @@ class Book {
  * @param {number} pages - The number of pages in a book.
  * @param {number} read - The reading status. 0 means not read and 1 means read.
  */
-function addBookToLibrary (title, author, pages, read) {
+function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
 }
@@ -58,7 +58,7 @@ function addBookToLibrary (title, author, pages, read) {
 /**
  * Loops through myLibrary array and adds book elements to the page.
  */
-function displayBooks () {
+function displayBooks() {
   for (let i = 0, j = 0; i < myLibrary.length; i++, j++) {
     // Create a new <div> element to represent a book.
     const book = document.createElement('div');
@@ -117,7 +117,7 @@ const booksContainer = document.querySelector('.main');
  * Removes a book from myLibrary array and re-displays the existing books.
  * @param {number} bookIndex - The index of a book in myLibrary array.
  */
-function removeBookAndUpdateDisplay (bookIndex) {
+function removeBookAndUpdateDisplay(bookIndex) {
   myLibrary.splice(bookIndex, 1);
   booksContainer.innerHTML = '';
   displayBooks();
@@ -131,11 +131,12 @@ function removeBookAndUpdateDisplay (bookIndex) {
 /**
  * Changes a book's reading status when read/not read button is clicked.
  */
-function enableReadButton () {
+function enableReadButton() {
   readButtons.forEach((readButton) => {
     readButton.addEventListener('click', () => {
       const bookIndex = readButton.dataset.book;
-      readButton.innerHTML = myLibrary[bookIndex].read === 0 ? 'Read' : 'Not Read';
+      readButton.innerHTML =
+        myLibrary[bookIndex].read === 0 ? 'Read' : 'Not Read';
       myLibrary[bookIndex].read = myLibrary[bookIndex].read === 0 ? 1 : 0;
     });
   });
@@ -144,7 +145,7 @@ function enableReadButton () {
 /**
  * Removes the book whose remove button is clicked.
  */
-function enableRemoveButton () {
+function enableRemoveButton() {
   removeButtons.forEach((removeButton) => {
     removeButton.addEventListener('click', () => {
       const bookIndex = removeButton.dataset.book;
@@ -167,11 +168,31 @@ addBookToLibrary('Distributed Systems For Fun and Profit', 'Mikito Takada', 60, 
 addBookToLibrary('The Hundred-Page Machine Learning Book', 'Andriy Burkov', 159, 0);
 addBookToLibrary('The Five Dysfunctions of a Team', 'Patrick Lencioni', 228, 0);
 addBookToLibrary('The Clean Coder', 'Robert C. Martin', 210, 0); */
-addBookToLibrary('Code: The Hidden Language of Computer Hardware and Software', 'Charles Petzold', 400, 0);
-addBookToLibrary('Introduction to the Theory of Computation', 'Michael Sipser', 456, 0);
-addBookToLibrary('Gödel, Escher, Bach: An Eternal Golden Braid', 'Douglas R. Hofstadter', 756, 0);
+addBookToLibrary(
+  'Code: The Hidden Language of Computer Hardware and Software',
+  'Charles Petzold',
+  400,
+  0
+);
+addBookToLibrary(
+  'Introduction to the Theory of Computation',
+  'Michael Sipser',
+  456,
+  0
+);
+addBookToLibrary(
+  'Gödel, Escher, Bach: An Eternal Golden Braid',
+  'Douglas R. Hofstadter',
+  756,
+  0
+);
 addBookToLibrary('Clean Architecture', 'Robert C. Martin', 432, 0);
-addBookToLibrary('Working Effectively with Legacy Code', 'Michael C. Feathers', 464, 0);
+addBookToLibrary(
+  'Working Effectively with Legacy Code',
+  'Michael C. Feathers',
+  464,
+  0
+);
 addBookToLibrary('The C++ Programming Language', 'Bjarne Stroustrup', 1030, 0);
 
 // Toggle nav menu viewing.
@@ -199,6 +220,7 @@ const titleInput = document.getElementById('title');
 const authorInput = document.getElementById('author');
 const pagesInput = document.getElementById('pages');
 const readInput = document.getElementById('read');
+const notReadInput = document.getElementById('not-read');
 
 // Enable modal
 const addBookButtons = document.querySelectorAll('.add');
@@ -212,19 +234,87 @@ addBookButtons.forEach((addBook) => {
   });
 });
 
+function showError(errorMessage, errorClassName) {
+  const errorSpan = document.querySelector(`.${errorClassName}`);
+  errorSpan.textContent = errorMessage;
+}
+
+function removeError(errorClassName) {
+  const errorSpan = document.querySelector(`.${errorClassName}`);
+  errorSpan.textContent = '';
+}
+
+// Place error messages on required fields when input is missing.
+function checkInput() {
+  if (!titleInput.validity.valid) {
+    showError('* Please enter the book title', 'title-error');
+  }
+
+  if (!authorInput.validity.valid) {
+    showError('* Please enter the author name', 'author-error');
+  }
+
+  if (!pagesInput.validity.valid) {
+    showError('* Please enter the number of pages', 'number-of-pages-error');
+  }
+
+  if (!readInput.checked && !notReadInput.checked) {
+    showError('* Did you read this book?', 'read-error');
+  }
+}
+
+// Remove error messages on required fields when input is received.
+titleInput.addEventListener('input', () => {
+  removeError('title-error');
+});
+
+authorInput.addEventListener('input', () => {
+  removeError('author-error');
+});
+
+pagesInput.addEventListener('input', () => {
+  removeError('number-of-pages-error');
+});
+
+readInput.addEventListener('click', () => {
+  removeError('read-error');
+});
+
+notReadInput.addEventListener('click', () => {
+  removeError('read-error');
+});
+
 // Close modal
-close.addEventListener('click', () => modal.close());
+close.addEventListener('click', () => {
+  // Remove error messages
+  removeError('title-error');
+  removeError('author-error');
+  removeError('number-of-pages-error');
+  removeError('read-error');
+
+  modal.close();
+});
 
 // Handle form submission
 form.addEventListener('submit', (e) => {
   // Prevent the form from actually submitting
   e.preventDefault();
+  checkInput();
 
   // Collect the entered information
   const title = titleInput.value;
   const author = authorInput.value;
   const pages = parseInt(pagesInput.value);
   const readingStatus = readInput.checked ? 1 : 0;
+
+  // Prevent form submission/modal closing when required data isn't present.
+  if (!title || !author || !pages) {
+    return;
+  }
+
+  if (!readInput.checked && !notReadInput.checked) {
+    return;
+  }
 
   // Add the new book
   addBookToLibrary(title, author, pages, readingStatus);
@@ -241,9 +331,5 @@ form.addEventListener('submit', (e) => {
 
   // Reset the form
   form.reset();
-});
-
-// Close the modal after adding a book
-addBook.addEventListener('click', (e) => {
   modal.close();
 });
